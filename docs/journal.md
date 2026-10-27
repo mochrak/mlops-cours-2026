@@ -35,3 +35,10 @@ Mode d'emploi (à garder en tête du fichier) :
 - **Prochaine étape :**
 
 -->
+
+## Lab 1 — Versioning (pilote : Malek, relecteur : mochrak)
+- Contrat dataset.yaml (German Credit), données versionnées par une stage DVC `download` (md5 24b8e38b…), remote s3://dvc-store/scoring.
+- 24 runs MLflow (dummy, régression logistique, random forest, gradient boosting) ; champion = régression logistique (ROC AUC 0,809, coût métier 108 au seuil 0,318).
+- Pipeline DVC download → prepare → train → evaluate ; feature store Feast (request_features, scoring_v1).
+- Incident : téléchargement du modèle impossible depuis le poste (URL présignée vers `s3.storage:8333`, nom interne au cluster). Correctif : `127.0.0.1 s3.storage` dans /etc/hosts.
+- Incident : `data/processed/.gitignore` non généré par DVC après un `dvc repro` interrompu ; recréé à la main.
